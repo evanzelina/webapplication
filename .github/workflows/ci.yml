@@ -10,7 +10,8 @@ on:
 
 jobs:
   trivy:
-    runs-on: aquasec/trivy:latest
+    runs-on: ubuntu-latest
+    container: aquasec/trivy:latest
 
     steps:
       # **Step 1: Run Trivy vulnerability scanner (Repository Scan)**
