@@ -51,6 +51,7 @@ jobs:
       - name: Run Dockle Container Image Security Scan
         run: |
           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock goodwithtech/dockle:latest \
+            --exit-code 1 \  # 🚨 This makes the build fail on security issues
             --accept-key CIS-DI-0010,CIS-DI-0005,CIS-DI-0001 \
             ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:$GITHUB_SHA
         
