@@ -1,18 +1,22 @@
-# Use the official Node.js image
+# Use an outdated and potentially insecure base image
 FROM node:16
 
-# Create and set the working directory
+# Set the working directory
 WORKDIR /app
 
 # Copy package.json and install dependencies
-COPY package.json .
-RUN npm install
+COPY package.json . 
+RUN npm install  
 
-# Copy the application code
-COPY . .
+# Copy all application files (potentially exposing sensitive files)
+COPY . .  
 
 # Expose the application port
 EXPOSE 3000
 
-# Start the application and keep the container alive
+# Running as root (Security Issue - No USER directive)
+# This allows the container to have unrestricted access
+# which Dockle will flag as a high-risk issue.
+
+# Start the application (No health checks, No security configurations)
 CMD ["sh", "-c", "node app.js || tail -f /dev/null"]
